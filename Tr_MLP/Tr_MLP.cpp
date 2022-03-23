@@ -116,12 +116,7 @@ void Read_data()
     }
     fileWrite_Desired_output_file_Normolization.close();
     /*????????????????????????????????????????????????????????????*/
-    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-    float normalization(float number) {
-        float z = (number - _outMin) / _difference;
-        return z;
-    }
-    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
 
 
     if (fopen_s(&fm, Input_file, "r") != 0) exit(1);
@@ -145,6 +140,13 @@ void Read_data()
 
 
 }
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+float normalization(float number) {
+    float z = (number - _outMin) / _difference;
+    return z;
+}
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 void LEARN(void)
 
