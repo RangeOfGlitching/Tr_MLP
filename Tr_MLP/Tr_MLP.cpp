@@ -30,11 +30,11 @@ using namespace std;
 
 
 #define  a(f)      1 / (1 + exp(-f))   //sigmoid function
-#define  _eta       0.11     // learning constant
+#define  _eta       0.01     // learning constant 0.11
 #define  _afa       0.2     // momentum constant 
 #define  _in_varl   4       // number of input variables
 #define  _out_varl  1       // number of output variables
-#define  _node      10      // number of hidden layer nodes
+#define  _node      10      // number of hidden layer nodes 10
 #define  _dat_num   500      // number of training samples
 
 #define  _iteration 30000  // number of learning iterations
@@ -44,9 +44,9 @@ void LEARN(void);        // learning the weights
 void TEST(void);         // compute the actual outputs
 void SAVE(void);         // save the learned weights
 /**************************************************************/
-void Renormalization_acty();
+//void Renormalization_acty();
+//float ReverseNormalization(float NormolizationNumber);
 float normalization(float number);
-float ReverseNormalization(float NormolizationNumber);
 /**************************************************************/
 float  _x[_dat_num + 1][_in_varl + 1], _d[_dat_num + 1][_out_varl + 1], _y[_out_varl + 1];
 float  _v[_node + 1][_in_varl + 1], _w[_out_varl + 1][_node + 1];
@@ -67,7 +67,7 @@ int _tmain(int argc, _TCHAR* argv[])
     Read_data();
     LEARN();
     TEST();
-    Renormalization_acty();
+    //Renormalization_acty();
     SAVE();
     printf("\n  ******   The  end ");
     _getch();
@@ -312,7 +312,8 @@ void TEST(void)
             for (q = 0; q <= _node; q++)
                 Y = Y + _w[j][q] * h[q];
             _y[j] = a(Y);
-
+            _y[j] = _y[j] * _difference + _outMin;
+            _d[num][j] = _d[num][j] * _difference + _outMin;
             fprintf(fout, "%f   \n", _y[j]);
 
             difference[j] = _d[num][j] - _y[j];
@@ -339,7 +340,7 @@ void TEST(void)
 
 
 
-void Renormalization_acty() {
+/*void Renormalization_acty() {
     float number;
     std::ifstream file_Read_Actual_output_file (Actual_output_file);
     std::vector<float> renormolization;
@@ -360,7 +361,7 @@ void Renormalization_acty() {
 }
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-float ReverseNormalization(float NormolizationNumber) {
+/*float ReverseNormalization(float NormolizationNumber) {
     NormolizationNumber = NormolizationNumber * _difference + _outMin;
     return NormolizationNumber;
 }
