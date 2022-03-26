@@ -220,8 +220,10 @@ void LEARN(void)
                 }
                 _y[j] = a(Y);
                 difference[j] = _y[j] - _d[num][j];
+		/*************************************************/
                 error[j] = error[j] + difference[j] * difference[j];
                 dely[j] = difference[j] * (1 - _y[j]) * _y[j];
+		/*************************************************/
             }
 
             for (q = 0; q< _node; q++)
