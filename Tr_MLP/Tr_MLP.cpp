@@ -30,11 +30,11 @@ using namespace std;
 
 
 #define  a(f)      1 / (1 + exp(-f))   //sigmoid function
-#define  _eta       0.01     // learning constant 0.11
+#define  _eta       0.1     // learning constant 0.1
 #define  _afa       0.2     // momentum constant 
 #define  _in_varl   4       // number of input variables
 #define  _out_varl  1       // number of output variables
-#define  _node      10      // number of hidden layer nodes 10
+#define  _node      15      // number of hidden layer nodes 10
 #define  _dat_num   500      // number of training samples
 
 #define  _iteration 30000  // number of learning iterations
@@ -220,10 +220,8 @@ void LEARN(void)
                 }
                 _y[j] = a(Y);
                 difference[j] = _y[j] - _d[num][j];
-		/*************************************************/
                 error[j] = error[j] + difference[j] * difference[j];
                 dely[j] = difference[j] * (1 - _y[j]) * _y[j];
-		/*************************************************/
             }
 
             for (q = 0; q< _node; q++)
@@ -314,8 +312,10 @@ void TEST(void)
             for (q = 0; q <= _node; q++)
                 Y = Y + _w[j][q] * h[q];
             _y[j] = a(Y);
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             _y[j] = _y[j] * _difference + _outMin;
             _d[num][j] = _d[num][j] * _difference + _outMin;
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             fprintf(fout, "%f   \n", _y[j]);
 
             difference[j] = _d[num][j] - _y[j];
